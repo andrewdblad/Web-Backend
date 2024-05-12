@@ -6,7 +6,7 @@ const Util = {}
  ************************** */
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
-  let list = "<ul>"
+  let list = '<ul>'
   list += '<li><a href="/" title="Home page">Home</a></li>'
   data.rows.forEach((row) => {
     list += "<li>"
@@ -56,6 +56,34 @@ Util.buildClassificationGrid = async function(data){
     }
     return grid
   }
+
+  Util.buildVehicleGrid = async function(data) {
+    let grid = ''
+    if(data.length > 0) {
+      grid += '<ul id="vehicle-display">'
+      data.forEach(vehicle => {
+        grid += '<li>'
+        grid += '<div class="vehicle-info">'
+        grid += '<h2>' + vehicle.inv_make + ' ' + vehicle.inv_model + '</h2>'
+        grid += '<p><strong>Mileage:</strong> ' + vehicle.inv_miles + '</p>'
+        grid += '<p><strong>Price:</strong> $' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</p>'
+        grid += '<p><strong>Description:</strong> ' + vehicle.inv_description + '</p>'
+        grid += '<p><strong>Color:</strong> ' + vehicle.inv_color + '</p>'
+        grid += '</div>'
+        grid += '<div class="vehicle-image">'
+        grid += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
+        grid += '<img src="' + vehicle.inv_image + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" />'
+        grid += '</a>'
+        grid += '</div>'
+        grid += '</li>'
+      })
+      grid += '</ul>'
+    } else {
+      grid += '<p class="notice">Sorry, vehicle could not be found</p>'
+    }
+    return grid
+  }
+  
 
 /* ****************************************
  * Middleware For Handling Errors

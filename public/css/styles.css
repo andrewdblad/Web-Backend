@@ -47,6 +47,11 @@ nav ul {
   margin: 0; 
 }
 
+.navBar a {
+  color: rgb(5, 176, 211); 
+  text-decoration: none;
+}
+
 nav ul li {
   color: white; 
   padding: 16px;
@@ -138,6 +143,101 @@ nav ul li:hover {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+#inv-display {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#inv-display li {
+  display: inline-block;
+  width: 300px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#inv-display li:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.namePrice {
+  padding: 10px;
+}
+
+.namePrice h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.namePrice span {
+  font-size: 16px;
+  color: #333;
+}
+
+.vehicle-image img {
+  width: 100%;
+  height: auto;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.notice {
+  text-align: center;
+  font-size: 18px;
+  color: #f00;
+  margin-top: 20px;
+}
+
+#vehicle-display {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#vehicle-display li {
+  display: flex;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.vehicle-info {
+  flex: 1;
+  padding: 20px;
+}
+
+.vehicle-image {
+  flex: 1;
+}
+
+.vehicle-image img {
+  width: 100%;
+  height: auto;
+}
+
+.vehicle-info h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.vehicle-info p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.notice {
+  text-align: center;
+  font-size: 18px;
+  color: #f00;
+  margin-top: 20px;
+}
+
+
 
 @media (max-width: 767px) {
   .hero-message {
