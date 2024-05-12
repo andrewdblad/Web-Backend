@@ -243,3 +243,11 @@ SET
         'vehicles/',
         SUBSTRING(inv_thumbnail, POSITION('/' IN inv_thumbnail) + 2)
     );
+
+UPDATE inventory
+SET 
+    inv_image = REPLACE(inv_image, '/ivehicles/mages/', '/vehicles/images/'),
+    inv_thumbnail = REPLACE(inv_thumbnail, '/ivehicles/mages/', '/vehicles/images/')
+WHERE 
+    inv_image LIKE '/ivehicles/mages/%' AND
+    inv_thumbnail LIKE '/ivehicles/mages/%';
