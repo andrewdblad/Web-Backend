@@ -246,8 +246,8 @@ SET
 
 UPDATE inventory
 SET 
-    inv_image = REPLACE(inv_image, '/ivehicles/mages/', '/vehicles/images/'),
-    inv_thumbnail = REPLACE(inv_thumbnail, '/ivehicles/mages/', '/vehicles/images/')
+    inv_image = REPLACE(inv_image, '/vehicles/images/', '/images/vehicles/'),
+    inv_thumbnail = REPLACE(inv_thumbnail, '/vehicles/images/', '/images/vehicles/')
 WHERE 
-    inv_image LIKE '/ivehicles/mages/%' AND
-    inv_thumbnail LIKE '/ivehicles/mages/%';
+    inv_image LIKE '/vehicles/images/%' AND
+    inv_thumbnail LIKE '/vehicles/images/%';
