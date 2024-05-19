@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Vehicle</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <%- messages() %>
+    <% if (errors) { %>
+        <ul class="notice">
+       <% errors.array().forEach(error => { %>
+         <li><%= error.msg %></li>
+      <%  }) %>
+       </ul>
+      <% } %>
+       <h1>Add Vehicle</h1>
+<!-- NAMES -->
+<!-- inv_make -->
+<!-- inv_model -->
+<!-- inv_year -->
+<!-- inv_description -->
+<!-- inv_image -->
+<!-- inv_thumbnail -->
+<!-- inv_price -->
+<!-- inv_miles -->
+<!-- inv_color -->
+
+<form id="addClassificationForm" action="/inv/add-vehicle" method="post">
+    <div class="form-group">
+        <label>Make:</label>
+        <input type="text" id="make" name="inv_make" required>
+
+        <label>Model:</label>
+        <input type="text" id="make" name="inv_model" required>
+
+        <label>Year:</label>
+        <input type="text" id="make" name="inv_year" required>
+
+        <label>Description:</label>
+        <input type="text" id="make" name="inv_description" required>
+
+        <label>Image:</label>
+        <input type="text" id="make" name="inv_image" required>
+
+        <label>Thumbnail:</label>
+        <input type="text" id="make" name="inv_thumbnail" required>
+
+        <label>Price:</label>
+        <input type="text" id="make" name="inv_price" required>
+
+        <label>Miles:</label>
+        <input type="text" id="make" name="inv_miles" required>
+
+        <label>Color:</label>
+        <input type="text" id="make" name="inv_color" required>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn">Add Classification</button>
+    </div>
+</form>
+</body>
+</html>

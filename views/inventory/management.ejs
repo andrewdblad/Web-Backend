@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <%- messages() %>
+    <% if (errors) { %>
+        <ul class="notice">
+       <% errors.array().forEach(error => { %>
+         <li><%= error.msg %></li>
+      <%  }) %>
+       </ul>
+      <% } %>
+       <h1>Vehicle Management</h1>
+       <a href="/inv/add-classification">Add New Classification</a>
+       <p></p>
+       <a href="/inv/add-vehicle">Add New Vehicle</a>
+</body>
+</html>
