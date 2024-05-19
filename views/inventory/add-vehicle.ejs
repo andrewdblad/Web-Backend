@@ -14,7 +14,7 @@
       <%  }) %>
        </ul>
       <% } %>
-       <h1>Add Vehicle</h1>
+       <h1 class="inv-header">Add Vehicle</h1>
 <!-- NAMES -->
 <!-- inv_make -->
 <!-- inv_model -->
@@ -26,6 +26,8 @@
 <!-- inv_miles -->
 <!-- inv_color -->
 
+<div class="form-body">
+<div class="form-container">
 <form id="addClassificationForm" action="/inv/add-vehicle" method="post">
     <div class="form-group">
         <label>Make:</label>
@@ -59,5 +61,7 @@
         <button type="submit" class="btn">Add Classification</button>
     </div>
 </form>
+</div>
+</div>
 </body>
 </html>

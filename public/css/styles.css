@@ -240,7 +240,7 @@ nav ul li:hover {
 
 /* LOGIN VIEW */
 
-.login-body, .registration-body {
+.login-body, .registration-body, .form-body {
   display: flex;
   justify-content: center;
   padding-top: 30px;
@@ -305,7 +305,7 @@ nav ul li:hover {
 
 /* REGISTER VIEW */
 
-.login-container, .registration-container {
+.login-container, .registration-container, .form-container {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
