@@ -305,7 +305,7 @@ nav ul li:hover {
 
 /* REGISTER VIEW */
 
-.login-container, .registration-container, .form-container {
+.login-container, .registration-container, .form-container, form {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -318,16 +318,16 @@ nav ul li:hover {
   margin-bottom: 20px;
 }
 
-.form-group {
+.form-group, form div {
   margin-bottom: 15px;
 }
 
-.form-group label {
+.form-group label, form label {
   display: block;
   margin-bottom: 5px;
 }
 
-.form-group input {
+.form-group input, form input {
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
@@ -335,7 +335,7 @@ nav ul li:hover {
   border-radius: 4px;
 }
 
-.btn {
+.btn, button {
   width: 100%;
   padding: 10px;
   border: none;
@@ -346,7 +346,7 @@ nav ul li:hover {
   cursor: pointer;
 }
 
-.btn:hover {
+.btn:hover, button:hover {
   background-color: #218838;
 }
 

@@ -76,13 +76,28 @@ async function registerAccount(req, res) {
     }
   }
 
+// Render the account management view
 async function buildAccount(req, res) {
-  let nav = await utilities.getNav()
+  let nav = await utilities.getNav();
+  let accountData = res.locals.loggedInUser; // Use the data from middleware
   res.render("account/account-management", {
-    title: "Account",
+    title: "Account Management",
     nav,
+    accountData,
     errors: null,
-  })
+  });
+}
+
+// Render the update account information view
+async function buildUpdateAccount(req, res) {
+  let nav = await utilities.getNav();
+  let accountData = await accountModel.getAccountById(req.params.id);
+  res.render("account/update-account", {
+    title: "Update Account Information",
+    nav,
+    accountData,
+    errors: null,
+  });
 }
 
 /* ****************************************
@@ -118,6 +133,120 @@ async function accountLogin(req, res) {
   }
  }
 
+/* ****************************************
+*  Logout and clear session
+* *************************************** */
+async function logout(req, res, next) {
+  res.clearCookie('jwt')
+  req.session.destroy(() => {
+    res.redirect('/')
+  })
+}
+
+// Handle account information update
+async function updateAccount(req, res) {
+  let nav = await utilities.getNav();
+  const { account_firstname, account_lastname, account_email } = req.body;
+  const accountId = req.params.id;
+
+  try {
+    await accountModel.updateAccount(accountId, account_firstname, account_lastname, account_email);
+    req.flash("message", "Account information updated successfully.");
+    res.redirect(`/account/update/${accountId}`);
+  } catch (error) {
+    req.flash("errors", [{ msg: 'Failed to update account information. Please try again.' }]);
+    res.redirect(`/account/update/${accountId}`);
+  }
+}
+
+// Handle password change
+async function changePassword(req, res) {
+  let nav = await utilities.getNav();
+  const { current_password, new_password, confirm_password } = req.body;
+  const accountId = req.params.id;
+
+  if (new_password !== confirm_password) {
+    req.flash("errors", [{ msg: 'New passwords do not match. Please try again.' }]);
+    return res.redirect(`/account/update/${accountId}`);
+  }
+
+  try {
+    let accountData = await accountModel.getAccountById(accountId);
+    const passwordMatch = await bcrypt.compare(current_password, accountData.account_password);
+
+    if (!passwordMatch) {
+      req.flash("errors", [{ msg: 'Current password is incorrect. Please try again.' }]);
+      return res.redirect(`/account/update/${accountId}`);
+    }
+
+    const hashedPassword = await bcrypt.hash(new_password, 10);
+    await accountModel.updatePassword(accountId, hashedPassword);
+
+    req.flash("message", "Password changed successfully.");
+    res.redirect(`/account/update/${accountId}`);
+  } catch (error) {
+    req.flash("errors", [{ msg: 'Failed to change password. Please try again.' }]);
+    res.redirect(`/account/update/${accountId}`);
+  }
+}
+
+async function postUpdateAccount(req, res) {
+  // Validate input data
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // Return data to the update view for correction if errors are found
+    return res.render('updateAccount', { errors: errors.array() });
+  }
+
+  // Update account information in the database
+  try {
+    await accountModel.updateAccount(req.body);
+    // Query the account data from the database after the update is done
+    const updatedAccount = await accountModel.getAccountById(req.body.account_id);
+    // Deliver the management view with updated account information
+    res.render('managementView', { account: updatedAccount, message: 'Account information updated successfully' });
+  } catch (err) {
+    console.error('Error updating account:', err);
+    res.render('updateAccount', { error: 'An error occurred while updating account information' });
+  }
+}
+
+async function postChangePassword(req, res) {
+  // Validate input data
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // Return to the update view for fixing errors
+    return res.render('updateAccount', { errors: errors.array() });
+  }
+
+  // Handle password change process
+  try {
+    const { accountId, currentPassword, newPassword } = req.body;
+    const isValidPassword = await accountModel.verifyPassword(accountId, currentPassword);
+    if (!isValidPassword) {
+      return res.render('updateAccount', { error: 'Incorrect current password' });
+    }
+
+    // Update password in the database
+    await accountModel.updatePassword(accountId, newPassword);
+    res.render('managementView', { message: 'Password updated successfully' });
+  } catch (err) {
+    console.error('Error changing password:', err);
+    res.render('updateAccount', { error: 'An error occurred while changing password' });
+  }
+}
+
 
   
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccount }
+module.exports = { buildLogin, 
+                   buildRegister, 
+                   registerAccount, 
+                   accountLogin, 
+                   buildAccount, 
+                   logout, 
+                   buildUpdateAccount, 
+                   updateAccount, 
+                   changePassword,
+                   postUpdateAccount,
+                   postChangePassword
+                  }

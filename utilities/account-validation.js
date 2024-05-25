@@ -75,5 +75,22 @@ validate.checkRegData = async (req, res, next) => {
     }
     next()
   }
+
+  validate.validateUpdateAccount = () => {
+    return [
+      body('firstname').notEmpty().withMessage('First name is required'),
+      body('lastname').notEmpty().withMessage('Last name is required'),
+      body('email').isEmail().withMessage('Invalid email address'),
+    ];
+  }
+
+  validate.validateChangePassword = () => {
+    return [
+      body('currentPassword').notEmpty().withMessage('Current password is required'),
+      body('newPassword')
+        .isLength({ min: 8 })
+        .withMessage('Password must be at least 8 characters long')
+    ];
+  }
   
   module.exports = validate

@@ -4,6 +4,11 @@ const router = new express.Router()
 const invController = require("../controllers/inventoryController")
 const Util = require("../utilities/index")
 
+
+
+// Route to check if Employee or Admin
+router.use(Util.checkAdminOrEmployee);
+
 // Route to build inventory by classification view
 router.get("/type/:classificationId", Util.handleErrors(invController.buildByClassificationId));
 // Route to build inventory by inventory view
